@@ -51,5 +51,15 @@ RSpec.describe "Items API", type: :request do
 
             expect(response).to be_successful
         end
+
+        it "returns a 404 error if item does not exist" do
+            get "/api/v1/items/1"
+
+            expect(response).to have_http_status(:not_found)
+
+            parsed = JSON.parse(response.body, symbolize_names: true)
+
+            expect(parsed[:error]).to eq("Item not found")
+        end
     end
 end
