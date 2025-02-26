@@ -42,4 +42,14 @@ RSpec.describe "Items API", type: :request do
             expect(parsed[:data].count).to eq(3)
         end
     end
+
+    describe "GET /api/v1/items/{{item_id}}" do
+        it "returns a specific item by its id" do
+            item = create(:item)
+
+            get "/api/v1/items/#{item.id}"
+
+            expect(response).to be_successful
+        end
+    end
 end
