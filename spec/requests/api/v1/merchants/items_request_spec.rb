@@ -27,3 +27,19 @@ RSpec.describe "Merchant's items API", type: :request do
         end
     end
 end
+
+RSpec.describe "Items API", type: :request do
+    describe "GET /api/v1/items" do
+        it "returns all items in the table" do
+            items = create_list(:item, 3)
+
+            get "/api/v1/items"
+
+            expect(response).to be_successful
+
+            parsed = JSON.parse(response.body, symbolize_names: true)
+
+            expect(parsed[:data].count).to eq(3)
+        end
+    end
+end
