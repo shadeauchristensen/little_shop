@@ -77,9 +77,9 @@ RSpec.describe "Items API", type: :request do
 
             created_item = JSON.parse(response.body, symbolize_names: true)
             
-            expect(created_item[:data][:attributes][:name]).to be_a(String)
-            expect(created_item[:data][:attributes][:description]).to be_a(String)
-            expect(created_item[:data][:attributes][:unit_price]).to be_a(Float)
+            expect(created_item[:name]).to be_a(String)
+            expect(created_item[:description]).to be_a(String)
+            expect(created_item[:unit_price]).to be_a(Float)
         end
     end
 

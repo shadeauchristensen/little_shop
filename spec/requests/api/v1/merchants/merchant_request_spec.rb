@@ -70,13 +70,13 @@ RSpec.describe "Merchant API", type: :request do
         it "can create a new merchant" do
             merchant = create(:merchant)
 
-            post "/api/v1/merchants", params: {name: merchant[:name]}
+            post "/api/v1/merchants", params: {name: merchant.name}
             
             expect(response).to be_successful
 
             created_merchant = JSON.parse(response.body, symbolize_names: true)
-            
-            expect(created_merchant[:data][:attributes][:name]).to be_a(String)
+
+            expect(created_merchant[:name]).to be_a(String)
         end
     end
 
