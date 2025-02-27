@@ -65,4 +65,35 @@ RSpec.describe "Merchant API", type: :request do
             expect(parsed[:error]).to eq("Merchant not found")
         end
     end
+
+    describe "POST /api/v1/merchants" do
+        it "can create a new merchant" do
+            merchant = create(:merchant)
+
+            post "/api/v1/merchants", params: {name: merchant.name}
+            
+            expect(response).to be_successful
+
+            created_merchant = JSON.parse(response.body, symbolize_names: true)
+
+            expect(created_merchant[:name]).to be_a(String)
+        end
+    end
+
+    describe "PATCH /api/v1/merchants/:id" do
+        it "can update an existing merchant" do
+            merchant = create(:merchant)
+           
+            patch "/api/v1/merchants/#{merchant.id}", params: { name: "NewString" }
+            
+            updated_merchant = Merchant.find_by(id: merchant.id)
+          
+            expect(response).to be_successful
+
+            expect(updated_merchant[:name]).to_not eq("MyString")
+
+            expect(updated_merchant[:name]).to eq("NewString")
+        end
+    end
+    
 end

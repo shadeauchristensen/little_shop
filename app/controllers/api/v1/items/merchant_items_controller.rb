@@ -1,7 +1,7 @@
 module Api
     module V1 
         module Items
-            class MerchantController < ApplicationController
+            class MerchantItemsController < ApplicationController
                 def show
                     item = Item.find_by(id: params[:item_id])
 

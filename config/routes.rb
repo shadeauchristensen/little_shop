@@ -13,21 +13,21 @@
   namespace :api do
     namespace :v1 do
       resources :merchants, only: [:index, :show]
-        get "/merchants/:merchant_id/items", to: "merchants/items#index"
+        get "/merchants/:merchant_id/items", to: "merchants/items_merchant#index"
 
 
-  get "/api/v1/merchants", to: "api/v1/merchants#index"
-  get "/api/v1/merchants/:id", to: "api/v1/merchants#show"
-  post "/api/v1/merchants", to: "api/v1/merchants#create"
-  patch "/api/v1/mechants/:id", to: "api/v1/merchants#update"
+  get "/merchants", to: "merchants#index"
+  get "/merchants/:id", to: "merchants#show"
+  post "/merchants", to: "merchants#create"
+  patch "/merchants/:id", to: "merchants#update"
 
-  get "/api/v1/items", to: "api/v1/items#index"
-  get "/api/v1/items/:id", to: "api/v1/items#show"
-  post "/api/v1/items", to: "api/v1/items#create"
-  put "/api/v1/items/:id", to: "api/v1/items#update"
+  get "/items", to: "items#index"
+  get "/items/:id", to: "items#show"
+  post "/items", to: "items#create"
+  patch "/items/:id", to: "items#update"
 
       resources :items, only: [:index, :show]
-      get "/items/:item_id/merchant", to: "items/merchant#show"
+      get "/items/:item_id/merchant", to: "items/merchant_items#show"
     end
   end
 end

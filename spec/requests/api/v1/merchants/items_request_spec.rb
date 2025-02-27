@@ -62,4 +62,40 @@ RSpec.describe "Items API", type: :request do
             expect(parsed[:error]).to eq("Item not found")
         end
     end
+
+    describe "POST /api/v1/items" do
+        it "can create a new item" do
+            item = create(:item)
+
+            post "/api/v1/items", params: {name: item[:name], 
+            description: item[:description],
+            unit_price: item[:unit_price],
+            merchant: item[:merchant]
+            }
+            
+            expect(response).to be_successful
+
+            created_item = JSON.parse(response.body, symbolize_names: true)
+            
+            expect(created_item[:name]).to be_a(String)
+            expect(created_item[:description]).to be_a(String)
+            expect(created_item[:unit_price]).to be_a(Float)
+        end
+    end
+
+    describe "PATCH /api/v1/items/{{item_id}}" do
+        it "can update an existing item" do
+            item = create(:item)
+           
+            patch "/api/v1/items/#{item.id}", params: { name: "NewString"}
+            
+            expect(response).to be_successful
+
+            updated_item = Item.find_by(id: item.id)
+
+            expect(updated_item[:name]).to_not eq(item[:name])
+
+            expect(updated_item[:name]).to eq("NewString")
+        end
+    end
 end
