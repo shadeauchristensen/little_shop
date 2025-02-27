@@ -1,7 +1,7 @@
 module Api
     module V1
         module Merchants
-            class ItemsController < ApplicationController
+            class ItemsMerchantController < ApplicationController
 
                 def index
                     merchant = Merchant.find_by(id: params[:merchant_id])
