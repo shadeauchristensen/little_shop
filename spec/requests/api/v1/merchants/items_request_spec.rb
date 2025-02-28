@@ -70,16 +70,17 @@ RSpec.describe "Items API", type: :request do
             post "/api/v1/items", params: {name: item[:name], 
             description: item[:description],
             unit_price: item[:unit_price],
-            merchant: item[:merchant]
+            merchant_id: item[:merchant_id]
             }
             
             expect(response).to be_successful
 
             created_item = JSON.parse(response.body, symbolize_names: true)
             
-            expect(created_item[:name]).to be_a(String)
-            expect(created_item[:description]).to be_a(String)
-            expect(created_item[:unit_price]).to be_a(Float)
+            expect(created_item[:data][:attributes][:name]).to be_a(String)
+            expect(created_item[:data][:attributes][:description]).to be_a(String)
+            expect(created_item[:data][:attributes][:unit_price]).to be_a(Float)
+            expect(created_item[:data][:attributes][:merchant_id]).to be_a(Integer)
         end
     end
 
@@ -96,6 +97,20 @@ RSpec.describe "Items API", type: :request do
             expect(updated_item[:name]).to_not eq(item[:name])
 
             expect(updated_item[:name]).to eq("NewString")
+        end
+
+        it "returns a 404 error if item does not exist" do
+            patch "/api/v1/items/1", params: { name: "NewString"}
+  
+            expect(response).to_not be_successful
+            
+            expect(response.status).to eq(404)
+
+            parsed_error = JSON.parse(response.body, symbolize_names: true)
+            
+            expect(parsed_error[:message]).to be_a(String)
+            expect(parsed_error[:errors]).to be_a(Array)
+            expect(parsed_error[:errors][0]).to be_a(String)
         end
     end
 end

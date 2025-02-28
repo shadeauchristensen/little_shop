@@ -75,8 +75,20 @@ RSpec.describe "Merchant API", type: :request do
             expect(response).to be_successful
 
             created_merchant = JSON.parse(response.body, symbolize_names: true)
+            
+            expect(created_merchant[:data][:attributes][:name]).to be_a(String)
+        end
 
-            expect(created_merchant[:name]).to be_a(String)
+        it "returns an error if attributes are not included" do
+            post "/api/v1/merchants"
+            
+            expect(response).to_not be_successful
+            
+            parsed_error = JSON.parse(response.body, symbolize_names: true)
+        
+            expect(parsed_error[:message]).to be_a(String)
+            expect(parsed_error[:errors]).to be_a(Array)
+            expect(parsed_error[:errors][0]).to be_a(String)
         end
     end
 
@@ -93,6 +105,18 @@ RSpec.describe "Merchant API", type: :request do
             expect(updated_merchant[:name]).to_not eq("MyString")
 
             expect(updated_merchant[:name]).to eq("NewString")
+        end
+
+        it "returns a 404 error if merchant does not exist" do
+          patch "/api/v1/merchants/1", params: { name: "NewString"}
+            
+            expect(response).to_not be_successful
+            
+            parsed_error = JSON.parse(response.body, symbolize_names: true)
+            
+            expect(parsed_error[:message]).to be_a(String)
+            expect(parsed_error[:errors]).to be_a(Array)
+            expect(parsed_error[:errors][0]).to be_a(String)
         end
     end
     

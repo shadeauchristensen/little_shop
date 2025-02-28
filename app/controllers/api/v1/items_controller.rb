@@ -13,11 +13,25 @@ class Api::V1::ItemsController < ApplicationController
     end
 
     def create
-        render json: Item.create(item_params)
+        begin
+            item = Item.create(item_params)
+        rescue StandardError => error
+            render json: {errors: [error], message: error.message}
+            return
+        end
+
+        render json: ItemSerializer.new(item), status: 201
     end
     
     def update
-        render json: Item.update(params[:id], item_params)
+        begin
+            item = Item.update(params[:id], item_params)
+        rescue StandardError => error
+            render json: {errors: [error], message: error.message}, status: 404
+            return
+        end
+
+        render json: ItemSerializer.new(item), status: 201
     end
     
     private
