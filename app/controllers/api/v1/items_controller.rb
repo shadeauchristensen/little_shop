@@ -38,21 +38,20 @@ class Api::V1::ItemsController < ApplicationController
         begin 
             validate_item_params
 
-            items = 
-            if params[:name].present?
-                Item.where("name ILIKE ?", "%#{params[:name]}%" ).order(:name)
-            else
-                filter_items_by_price
-            end
+            items = if params[:name].present?
+                        Item.where("name ILIKE ?", "%#{params[:name]}%" ).order(:name)
+                    else
+                        filter_items_by_price
+                    end
 
-            render json: ItemSerializer.new(items)
+            render json: ItemSerializer.new(items), status: :ok
 
-            rescue ArgumentError => e
-                render json: { error: e.message }, status: :bad_request
-
-            rescue StandardError => e
-                render json: { error: "Something is wrong: #{e.message}" }, status: :internal_server_error
-            end
+        rescue ArgumentError => e
+            render json: { errors: [e.message] }, status: :bad_request
+        
+        rescue StandardError => e
+            render json: { errors: "Something is wrong: #{e.message}" }, status: :internal_server_error
+            
         end
     end
     
@@ -63,21 +62,43 @@ class Api::V1::ItemsController < ApplicationController
     end
 
     def validate_item_params
+        if params[:name].blank? && params[:min_price].blank? && params[:max_price].blank?
+            raise ArgumentError, "Invalid search parameters: name or price filter required"
+        end
+    
         if params[:name].present? && (params[:min_price].present? || params[:max_price].present?)
-          raise ArgumentError, "Invalid search parameters: cannot combine the name and prices"
-
+            raise ArgumentError, "Invalid search parameters: cannot combine name and price filters"
+        end
+    
         if params[:name].present? && params[:name].strip.empty?
             raise ArgumentError, "Invalid search parameters: name cannot be empty"
         end
+    
+        if params[:min_price].present? && params[:min_price].to_f < 0
+            raise ArgumentError, "Invalid search parameters: min_price cannot be negative"
+        end
+    
+        if params[:max_price].present? && params[:max_price].to_f < 0
+            raise ArgumentError, "Invalid search parameters: max_price cannot be negative"
+        end    
     end
 
     def filter_items_by_price
-        min_price = params[:min_price].to_f if params[:min_price].present?
-        max_price = params[:max_price].to_f if params[:max_price].present?
-
+        min_price = params[:min_price].to_f
+        max_price = params[:max_price].to_f
+    
         query = Item.all
-        query = query.where("unit_price >= ?", min_price) if min_price
-        query = query.where("unit_price <= ?", max_price) if max_price
-        query
+
+        if params[:min_price].present?
+            min_price = params[:min_price].to_f
+            query = query.where("unit_price >= ?", min_price)
+        end
+    
+        if params[:max_price].present?
+            max_price = params[:max_price].to_f
+            query = query.where("unit_price <= ?", max_price)
+        end
+    
+        query.order(:unit_price)
     end
 end

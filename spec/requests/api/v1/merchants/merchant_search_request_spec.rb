@@ -3,20 +3,20 @@ require "rails_helper"
 RSpec.describe "Merchant Search Request", type: :request do
     describe "/api/v1/merchants/find" do
         before :each do
-            @merchant1 = create(:merchant, name: "Turing")
+            @merchant1 = create(:merchant, name: "Turing Mart")
             @merchant2 = create(:merchant, name: "Ring World")
             @merchant3 = create(:merchant, name: "NonExistent")
         end
 
         it "Happy path, finds first merchant the meets search terms (case-insensitive)" do
-            get "/api/v1/merchants/find?name=ring"
+            get "/api/v1/merchants/find?name=Mart"
 
             expect(response).to be_successful
 
             parsed = JSON.parse(response.body, symbolize_names: true)
 
             expect(parsed[:data]).to have_key(:id)
-            expect(parsed[:data][:attributes][:name]).to eq("Ring World")
+            expect(parsed[:data][:attributes][:name]).to eq("Turing Mart")
         end
 
 
