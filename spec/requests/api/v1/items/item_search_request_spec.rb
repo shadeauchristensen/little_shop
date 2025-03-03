@@ -28,7 +28,7 @@ RSpec.describe "Item Find_all Search Request", type: :request do
             expect(response).to be_successful
             parsed = JSON.parse(response.body, symbolize_names: true)
       
-            expect(parsed[:data].size).to eq(Item.where("unit_price >= 50 AND unit_price <= 150").count)
+            expect(parsed[:data].size).to eq(2)
         end
 
         it "Sad Path, returns a 400 if min_price is less than 0" do
