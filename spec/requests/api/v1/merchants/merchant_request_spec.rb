@@ -52,7 +52,7 @@ RSpec.describe "Merchant API", type: :request do
 
             parsed = JSON.parse(response.body, symbolize_names: true)
 
-            expect(parsed[:data][:attributes][:name]).to eq("MyString")
+            expect(parsed[:data][:attributes][:name]).to eq(merchant.name)
         end
 
         it "returns a 404 error if merchant does not exist" do
