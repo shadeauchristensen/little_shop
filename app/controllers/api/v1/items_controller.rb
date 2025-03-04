@@ -16,7 +16,7 @@ class Api::V1::ItemsController < ApplicationController
         begin
             item = Item.create(item_params)
         rescue StandardError => error
-            render json: {errors: [error], message: error.message}
+            render json: {errors: [error], message: error.message}, status: 404
             return
         end
 
@@ -45,13 +45,10 @@ class Api::V1::ItemsController < ApplicationController
                     end
 
             render json: ItemSerializer.new(items), status: :ok
-
-        rescue ArgumentError => e
-            render json: { errors: [e.message] }, status: :bad_request
-        
-        rescue StandardError => e
-            render json: { errors: "Something is wrong: #{e.message}" }, status: :internal_server_error
-            
+        rescue ArgumentError => error
+            render json: { errors: [error.message] }, status: :bad_request
+        rescue StandardError => error
+            render json: { errors: [error], message: error.message }, status: :internal_server_error
         end
     end
     
