@@ -14,6 +14,10 @@
       namespace :v1 do
         get "/merchants/find", to: "merchants#find" #watch out for scope! issue was endpoint hit :id before it hit find. returning no dat
     
+        get "/merchants/:merchant_id/customers", to: 'merchant_customers#index'
+        
+        get "/merchants/:merchant_id/invoices", to: "merchant_invoices#index"
+
         resources :merchants, only: [:index, :show, :create, :update] do
           get "/items", to: "merchants/items_merchant#index"
         end
