@@ -51,8 +51,8 @@ class Api::V1::MerchantsController < ApplicationController
                 render json: MerchantSerializer.new(merchant), status: :ok
             end
 
-        rescue StandardError => e
-            render json: { error: "Something went wrong: #{e.message}" }, status: :internal_server_error
+        rescue StandardError => error
+            render json: { error: "Something went wrong: #{error.message}" }, status: :internal_server_error
         end
     end
     

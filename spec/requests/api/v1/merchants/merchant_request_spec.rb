@@ -30,6 +30,7 @@ end
 RSpec.describe "Merchant API", type: :request do
     describe "GET /api/v1/merchants" do
         it "Returns all merchants in the table" do
+            Merchant.destroy_all
             merchants = create_list(:merchant, 3)
 
             get "/api/v1/merchants"
