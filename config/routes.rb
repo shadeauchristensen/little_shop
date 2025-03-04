@@ -23,6 +23,9 @@
         end
     
         get "/items/find_all", to: "items#find_all"
+
+        get "/merchants/:merchant_id/customers", to: "customers#show"
+        get "/merchants/:merchant_id/invoices", to: "invoices#show"
       end
     end
   end
