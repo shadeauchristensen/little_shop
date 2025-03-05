@@ -2,26 +2,28 @@
 
 # README
 
+This repo serves as the Rails BE half of our submission for the Turing School Mod 2 Group Project - Little Shop. It runs a simple server for a simple JS frontend website that manages simulated online retailer data, including merchants, items for sale, customers, and various invoices. Group members are listed below.
+
 ### Collaborators
 
 Shadeau Christensen
 
-GitHub Profile: https://github.com/shadeauchristensen
+* GitHub Profile: https://github.com/shadeauchristensen
 
 
 Rig Freyr
 
-GitHub Profile: https://github.com/ontruster74
+* GitHub Profile: https://github.com/ontruster74
 
 
 Sebastian McKee
 
-GitHub Profile: https://github.com/0nehundr3d
+* GitHub Profile: https://github.com/0nehundr3d
 
 
 Coral Ruschak
 
-GitHub Profile: https://github.com/Coralruschak
+* GitHub Profile: https://github.com/Coralruschak
 
 
 DTR Agreement Link: https://docs.google.com/document/d/1QDM5LadOe_XpyhzVJfU6hYQ9_OrkfXBSJ9ZhCKFGV3g/edit?usp=sharing
