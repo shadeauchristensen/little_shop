@@ -8,19 +8,23 @@ Shadeau Christensen
 
 GitHub Profile: https://github.com/shadeauchristensen
 
+
 Rig Freyr
 
 GitHub Profile: https://github.com/ontruster74
+
 
 Sebastian McKee
 
 GitHub Profile: https://github.com/0nehundr3d
 
+
 Coral Ruschak
 
 GitHub Profile: https://github.com/Coralruschak
 
-DTR Agreement Link: 
+
+DTR Agreement Link: https://docs.google.com/document/d/1QDM5LadOe_XpyhzVJfU6hYQ9_OrkfXBSJ9ZhCKFGV3g/edit?usp=sharing
 
 ### Dependencies
 
