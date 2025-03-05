@@ -28,6 +28,8 @@ Coral Ruschak
 
 DTR Agreement Link: https://docs.google.com/document/d/1QDM5LadOe_XpyhzVJfU6hYQ9_OrkfXBSJ9ZhCKFGV3g/edit?usp=sharing
 
+GitHub Project Board: https://github.com/users/shadeauchristensen/projects/5/views/1
+
 ### Dependencies
 
 * Ruby version
