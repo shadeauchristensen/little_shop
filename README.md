@@ -2,7 +2,7 @@
 
 # README
 
-This repo serves as the Rails BE half of our submission for the Turing School Mod 2 Group Project - Little Shop. It runs a simple server for an equally simple JS frontend website that manages simulated online retailer data, including merchants, items for sale, customers, and various invoices. Group members are listed below.
+This repo serves as the Rails BE half of our submission for the Turing School Mod 2 Group Project - Little Shop. It runs a simple Ruby server for an equally simple JS frontend website that manages simulated online retailer data, including merchants, items for sale, customers, and various invoices. Group members are listed below.
 
 ### Collaborators
 
